@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 const mysql = require('mysql2');
 const express = require('express');
 require('dotenv').config();
-const cTable = require('console.table');
+const consoleTable = require('console.table');
 
 const PORT = process.env.PORT || 3001;
 
@@ -60,3 +60,38 @@ function init() {
         init();
     });
   }
+
+  // Show roles table
+  function viewRoles() {
+    db.query("SELECT * FROM roles", function (err, results) {
+        console.table(results);
+        init();
+    });
+  }
+
+  // Show employees table
+  function viewEmployees() {
+    db.query("SELECT * FROM employees", function (err, results) {
+        console.table(results);
+        init();
+    });
+  }
+
+  // Prompt to add new dept name and add it to the db
+  function addDepartment() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the new department name?",
+            name: "newDepartment"
+        }
+    ])
+    .then((data) => {
+        db.query(`INSERT INTO departments (department_name) VALUES (?)`, [data.newDepartment], function (err, results)
+        {
+          if (err) throw err;
+          console.table(results);
+          init();
+        });
+      });
+    }

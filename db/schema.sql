@@ -10,7 +10,7 @@ CREATE TABLE departments (
   department_name VARCHAR(50) NOT NULL
 );
 
--- create a table called roles in sql to show job title, salary, and department
+-- create a table called roles in sql to show job title, salary, and department_id
 CREATE TABLE roles (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   job_title VARCHAR(50) NOT NULL,
